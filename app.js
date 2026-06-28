@@ -980,14 +980,10 @@ $$\\int_0^\\infty e^{-x}\\,dx = 1$$
 `;
 
 function boot() {
-  const firstRun = !localStorage.getItem(DOCS_KEY); // no saved docs => brand-new visitor
   loadDocs();
   applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-  const fromHash = loadFromHash();
-  if (!fromHash) loadCurrentIntoEditor();
+  if (!loadFromHash()) loadCurrentIntoEditor();
   drawIcons(); // render all remaining static toolbar/action icons
-  // Greet new visitors with the template gallery (skip if they arrived via a share link).
-  if (firstRun && !fromHash) openTemplates();
   // Hide File System buttons in palette handled gracefully via fallbacks.
   editor.focus();
 }
